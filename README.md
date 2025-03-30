@@ -1,8 +1,6 @@
 # Parcial 1 Electronica_Digital_Andres-Toledo_091-20-20309
 Repositorio que engloba todo lo solicitado para el parcial numero 1 de la clase de electronica digital. 
 
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/IxX6jphl)
-
 ## video explicativo: [Link: FSM Moore - aspiradora](https://youtu.be/PKCDxPp7X8s)
 ## Link a video Explicativo de simulacion vivado: [Link Explicacion de Simulacion](https://youtu.be/-G110fX8Qe0)
 ---
@@ -205,6 +203,89 @@ La conversión binaria (GiB) es utilizada principalmente por software y sistemas
 
 - Compatibilidad con otros dispositivos
 En electrónica y telecomunicaciones, se usan múltiplos de 10 en otras unidades (MHz, Mbps, etc.), por lo que mantener GB facilita la estandarización.
+
+- Entonces por ejemplo mi disco duro es de 225 GB.
+GiB = 225x(10^9) / (2^30) = 209.53 GiB.
+225 - 209.53 = 15.47 GB
+
+- El porcentaje de  almacenamiento inflado es entonces (15.47/225)*100 = 6.87%
+
+---
+---
+
+# Ejercicios de Tarea C3a
+
+## Video a semaforo triple: https://youtu.be/M4obQ3xy5-s
+
+![Mejoras-latch](https://github.com/user-attachments/assets/04356b88-0fd2-44cc-bf3a-0f75e707a655)
+
+# Comparación entre SR Latch, D Latch y D Flip-Flop
+
+### 1. SR Latch (Set-Reset Latch)
+**Tipo:** Circuito secuencial básico  
+**Entradas:** `S` (Set) y `R` (Reset)  
+**Salidas:** `Q` y `Q'` (complemento de `Q`)  
+
+### Funcionamiento:
+- `S = 1`, `R = 0` ➜ `Q = 1` (se almacena un 1).
+- `S = 0`, `R = 1` ➜ `Q = 0` (se almacena un 0).
+- `S = 0`, `R = 0` ➜ Mantiene el estado anterior.
+- **Estado prohibido**: `S = 1`, `R = 1` (indeterminado).
+
+**Uso:** Memoria simple, almacenamiento de bits.
+
+---
+
+### 2. D Latch (Data Latch)
+**Tipo:** Latch controlado por un "enable"  
+**Entradas:** `D` (Dato), `Enable` (E o Clock)  
+**Salidas:** `Q` y `Q'`  
+
+### Funcionamiento:
+- Si `Enable = 1`, `Q` sigue a `D`.
+- Si `Enable = 0`, `Q` mantiene su valor.
+
+**Uso:** Almacenar datos de manera controlada, memoria RAM.
+
+---
+
+### 3. D Flip-Flop (Data Flip-Flop)
+**Tipo:** Flip-Flop activado por el **borde** de un reloj  
+**Entradas:** `D` (Dato), `Clock` (CLK)  
+**Salidas:** `Q` y `Q'`  
+
+### Funcionamiento:
+- **En el borde de subida o bajada del reloj**, `Q` toma el valor de `D`.
+- **Entre pulsos de reloj, Q se mantiene constante**.
+
+**Uso:** Registro de datos en sistemas síncronos, contadores.
+---
+### ¿Cuál usar?
+- **SR Latch** si solo necesitas una memoria básica.
+- **D Latch** si quieres controlar cuándo se actualiza el valor.
+- **D Flip-Flop** si necesitas sincronización con un reloj.
+
+🔗 Video: https://youtu.be/W3UAs8Ui6aI?si=cdc1PwyoRmGGyHu3
+  
+## FSM Moore, tres semaforos + boton de prioridad a el peaton en el semaforo East
+
+![image](https://github.com/user-attachments/assets/efcf8392-e98b-4b1d-9918-af9c64cae6c4)
+
+Basicamente se trata de replicar el comportamiento de tres semaforos, implementando un boton que de prioridad al peaton durante (1) ciclo, en mi caso al ser carnet impar,
+se hace el "paso de zebra" en la calle east.
+
+![Contador 3 bit](https://github.com/user-attachments/assets/df75f42d-e537-4b9c-b23c-7536ec89d375)
+
+El funcionamiento es sencillo, tengo un contador de 3 bit (6 estados) el cual funciona de manera ciclica. Cada uno de esos seis ciclos se complementa con el boton, de modo que si el boton esta sin presionar los semaforos siguen su ciclo normal y si el boton se presiona, lo ciclos cambian a los alternos sgun en que estado anterior estuvieran.
+
+Admito que no lo pense mucho y me lleve la mayor parte del trabajo, a que lo hiciera el decodificador. Esto pues tiene sus incovenientes dado que, al producirse un cambio de estado con el boton presionado, solo se entra en otro ciclo. Y esto no satisface realmente las exigencias del circuito.
+
+Aqui estaria la tabla utilizada para el analisis combinacional, el glitch seria, que si el boton pasa presionado sin un D flipflop ( que creo deben ser dos), basicamente el circuito solo cambia al loop donde el boton esta presionado y por lo tanto alterna entre rojo y amarillo unicamente, aunque no es el comportamiento deseado: 
+
+![tabla](https://github.com/user-attachments/assets/3f4a9de9-9a4f-4fc6-aaeb-d75269268f8c)
+
+Esta seria una pequena muestra de los semaforos funcionando:
+![semaforos en funcionamiento](https://github.com/user-attachments/assets/0ee8e80c-e182-402a-9798-7fa1b72c2838)
 
 - Entonces por ejemplo mi disco duro es de 225 GB.
 GiB = 225x(10^9) / (2^30) = 209.53 GiB.
